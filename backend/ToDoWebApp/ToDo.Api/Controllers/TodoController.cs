@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ToDo.Domain.DTO;
 using ToDo.Domain.Interfaces;
 using ToDo.Domain.Models;
 
@@ -32,6 +33,18 @@ namespace ToDo.Api.Controllers
         public async Task<Todo> GetTodoById(int id)
         {
             return await _repo.GetTodoById(id);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Remove(int id)
+        {
+            await _repo.Remove(id);
+        }
+
+        [HttpPut]
+        public async Task UpdateStatus(UpdateStatusDto dto)
+        {
+            await _repo.UpdateStatus(dto);
         }
     }
 }

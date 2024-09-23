@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ToDo.Domain.Database;
+using ToDo.Domain.DTO;
+using ToDo.Domain.Enums;
 using ToDo.Domain.Interfaces;
 using ToDo.Domain.Models;
 
@@ -31,9 +33,19 @@ namespace ToDo.Infra
             return await _ctx.Todos.FirstOrDefaultAsync(todo => todo.Id == todoId);
         }
 
-        public Task Remove(int todoId)
+        public async Task Remove(int todoId)
         {
-            throw new NotImplementedException();
+            Todo todo = await GetTodoById(todoId);
+            _ctx.Todos.Remove(todo);
+            await SaveChanges();
+        }
+
+        public async Task UpdateStatus(UpdateStatusDto dto)
+        {
+            Todo todo = await GetTodoById(dto.TodoId);
+            todo.Status = dto.Status;
+            _ctx.Todos.Update(todo);
+            await SaveChanges();
         }
 
         private async Task SaveChanges()

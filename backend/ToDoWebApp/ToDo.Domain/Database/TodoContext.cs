@@ -10,7 +10,11 @@ namespace ToDo.Domain.Database
         public TodoContext(DbContextOptions<TodoContext> opt) 
             : base(opt)
         {
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(TodoContext).Assembly);
         }
     }
 }
