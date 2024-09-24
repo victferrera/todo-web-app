@@ -19,6 +19,13 @@ namespace ToDo.Api
             builder.Services.AddDbContextPool<TodoContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("TodoContext")));
             builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 
+            builder.Services.AddCors(o => o.AddPolicy("policy", builder =>
+            {
+                builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddSwaggerGen(opt =>
@@ -41,6 +48,8 @@ namespace ToDo.Api
             });
 
             var app = builder.Build();
+
+            app.UseCors("policy");
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
