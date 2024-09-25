@@ -44,6 +44,7 @@ namespace ToDo.Infra
         {
             Todo todo = await GetTodoById(dto.TodoId);
             todo.Status = dto.Status;
+            todo.UpdatedOn = DateTime.UtcNow;
             _ctx.Todos.Update(todo);
             await SaveChanges();
         }

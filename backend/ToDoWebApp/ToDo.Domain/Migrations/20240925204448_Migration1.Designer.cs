@@ -12,7 +12,7 @@ using ToDo.Domain.Database;
 namespace ToDo.Domain.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20240923230458_Migration1")]
+    [Migration("20240925204448_Migration1")]
     partial class Migration1
     {
         /// <inheritdoc />
@@ -59,14 +59,15 @@ namespace ToDo.Domain.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Status")
+                    b.Property<int?>("Status")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0);
+
+                    b.Property<int?>("TimeTracking")
                         .HasColumnType("integer");
-
-                    b.Property<string>("TimeTracking")
-                        .HasColumnType("text");
 
                     b.Property<string>("Title")
                         .IsRequired()

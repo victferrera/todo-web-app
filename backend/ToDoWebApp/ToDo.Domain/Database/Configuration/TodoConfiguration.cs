@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ToDo.Domain.Enums;
 using ToDo.Domain.Models;
 
 namespace ToDo.Domain.Database.Configuration
@@ -16,15 +17,9 @@ namespace ToDo.Domain.Database.Configuration
                 .IsRequired(true)
                 .HasMaxLength(140);
 
-            builder.Property(p => p.Description)
-                .IsRequired(true);
-
             builder.Property(p => p.Status)
-                .IsRequired(true)
-                .HasConversion<int>();
-
-            builder.Property(p => p.TimeTracking)
-                .IsRequired(false);
+                .HasConversion<int>()
+                .HasDefaultValue(TodoStatusType.Active);
         }
     }
 }
