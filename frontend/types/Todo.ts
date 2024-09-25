@@ -1,10 +1,10 @@
 interface Todo {
-    Id: Number,
-    Title: string
-    Description: string
-    Status: boolean
-    TimeTracking: string
-    Comments: Array<string>
-    CreatedOn: Date
-    UpdatedOn: Date
+    id: number,
+    title: string ,
+    description: string,
+    status: boolean,
+    timeTracking: number,
+    comments: Array<Comment>,
+    createdOn: Date,
+    updatedOn: Date,
 }

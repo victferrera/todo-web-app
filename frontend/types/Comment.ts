@@ -1,5 +1,5 @@
 interface Comment {
-    Id: Number,
-    Text: string,
-    TodoId: Number
+    id: number,
+    text: string,
+    todoId: number
 }

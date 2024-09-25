@@ -26,6 +26,7 @@ namespace ToDo.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Todo>> GetAllTaks()
         {
+            Thread.Sleep(3000);
             return await _repo.GetAllTodos();
         }
 
