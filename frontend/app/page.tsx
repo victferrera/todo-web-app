@@ -4,10 +4,9 @@ import Card from "@/components/card";
 import Header from "@/components/header";
 import Input from "@/components/input";
 import TodoItem from "@/components/todoItem";
-import { getAllTodos } from '@/services/todoService';
+import { getAllTodos, addTodo } from '@/services/todoService';
 import { useState, useEffect, Suspense } from 'react';
-import LoadingSkeleton from "@/components/loadingSkeleton";
-import Container from "@/components/container";
+import { FormEvent } from "react";
 
 export default function Home() {
 
@@ -25,14 +24,14 @@ export default function Home() {
     setLoading(false)
   };
 
-  const callback = () => {
-    fetch();
+  const callback = async () => {
+    await fetch();
   };
 
   return (
     <>
       <Header />
-      <Input />
+      <Input callback={callback} />
       <Card isLoading={isLoading}>
         <div>
           {todos.length !== 0 ? todos.map(t => <TodoItem key={t.id} id={t.id} status={t.status} title={t.title} callback={callback} />) :

@@ -31,5 +31,22 @@ const removeTodo = async (id: number): Promise<Response> => {
         throw error;
     }
 }
+const addTodo = async (title: string): Promise<Response> => {
+    try {
+        const response = await fetch(`http://localhost:5101/api/todo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title })
+        });
 
-export { getAllTodos, removeTodo }
+        return response;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+
+export { getAllTodos, removeTodo, addTodo }
