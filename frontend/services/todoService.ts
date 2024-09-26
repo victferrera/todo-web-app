@@ -1,7 +1,10 @@
+'use server'
+
+const url = process.env.TODO_API_URL!;
+
 const getAllTodos = async (): Promise<Array<Todo>> => {
-    const url = process.env.TODO_API_URL;
     try {
-        const response = await fetch("http://localhost:5101/api/todo", {
+        const response = await fetch(url, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json"
@@ -17,7 +20,7 @@ const getAllTodos = async (): Promise<Array<Todo>> => {
 }
 const removeTodo = async (id: number): Promise<Response> => {
     try {
-        const response = await fetch(`http://localhost:5101/api/todo/${id}`, {
+        const response = await fetch(`${url}/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +36,7 @@ const removeTodo = async (id: number): Promise<Response> => {
 }
 const addTodo = async (title: string): Promise<Response> => {
     try {
-        const response = await fetch(`http://localhost:5101/api/todo`, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
