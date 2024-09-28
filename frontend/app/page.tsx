@@ -32,10 +32,11 @@ export default function Home() {
     await fetch();
   };
 
-  const handleOnlyOpenTasksClick = () => {
+  const handleOnlyOpenTasksClick = async () => {
     const onlyOpen = onlyOpenTasks === 2 ? 0 : 2;
     setOnlyOpenTasks(onlyOpen);
     setTodosAux(onlyOpen === 2 ? todos.filter(t => t.status !== 2) : todos.filter(t => t.status === onlyOpen));
+    await fetch();
   }
 
   return (
