@@ -20,6 +20,7 @@ const TodoItem: React.FC<Props> = ({ status, title, id, callback }) => {
         const newStatus = todoStatus === 0 ? 1 : 0;
 
         const response = await updateTodoStatus({ todoId: id, status: newStatus });
+        callback();
 
         if (response !== 200) {
             console.log('erro')
