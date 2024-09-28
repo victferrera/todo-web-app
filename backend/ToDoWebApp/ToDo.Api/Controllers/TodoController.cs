@@ -41,6 +41,18 @@ namespace ToDo.Api.Controllers
             await _repo.Remove(id);
         }
 
+        [HttpPost("comment")]
+        public async Task AddComment(CommentDto dto)
+        {
+            await _repo.AddComment(dto);
+        }
+
+        [HttpPut("comment")]
+        public async Task UpdateComment(CommentDto dto)
+        {
+            await _repo.UpdateComment(dto);
+        }
+
         [HttpPut]
         public async Task UpdateStatus(UpdateStatusDto dto)
         {

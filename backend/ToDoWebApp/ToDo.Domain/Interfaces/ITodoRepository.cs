@@ -11,5 +11,7 @@ namespace ToDo.Domain.Interfaces
         Task<Todo> GetTodoById(int todoId);
         Task Remove(int todoId);
         Task UpdateStatus(UpdateStatusDto dto);
+        Task AddComment(CommentDto dto);
+        Task UpdateComment(CommentDto dto);
     }
 }
