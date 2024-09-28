@@ -1,5 +1,10 @@
 'use server'
 
+interface UpdateDto {
+    status: number,
+    todoId: number
+}
+
 const url = process.env.TODO_API_URL!;
 
 const getAllTodos = async (): Promise<Array<Todo>> => {
@@ -10,15 +15,13 @@ const getAllTodos = async (): Promise<Array<Todo>> => {
                 "Content-Type": "application/json"
             },
         });
-
-        const ar = await response.json() as Array<Todo>;
-        return ar;
+        return await response.json();
     } catch (error) {
         console.log(error);
         throw error;
     }
 }
-const removeTodo = async (id: number): Promise<Response> => {
+const removeTodo = async (id: number) : Promise<number>=> {
     try {
         const response = await fetch(`${url}/${id}`, {
             method: 'DELETE',
@@ -27,24 +30,44 @@ const removeTodo = async (id: number): Promise<Response> => {
             },
         });
 
-        return response;
+        return response.status;
 
     } catch (error) {
         console.log(error);
         throw error;
     }
 }
-const addTodo = async (title: string): Promise<Response> => {
+const addTodo = async (title: string): Promise<number> => {
     try {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title })
+            body: JSON.stringify({ title }),
+            cache: 'no-cache'
         });
 
-        return response;
+        return response.status;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
+const updateTodoStatus = async (updateDto: UpdateDto): Promise<number> => {
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updateDto),
+            cache: 'no-cache'
+        });
+
+        console.log(response);
+        return response.status;
 
     } catch (error) {
         console.log(error);
@@ -52,4 +75,4 @@ const addTodo = async (title: string): Promise<Response> => {
     }
 }
 
-export { getAllTodos, removeTodo, addTodo }
+export { getAllTodos, removeTodo, addTodo, updateTodoStatus }

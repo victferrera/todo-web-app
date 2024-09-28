@@ -4,9 +4,8 @@ import Card from "@/components/card";
 import Header from "@/components/header";
 import Input from "@/components/input";
 import TodoItem from "@/components/todoItem";
-import { getAllTodos, addTodo } from '@/services/todoService';
-import { useState, useEffect, Suspense } from 'react';
-import { FormEvent } from "react";
+import { getAllTodos } from '@/services/todoService';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
 

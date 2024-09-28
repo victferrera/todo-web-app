@@ -26,8 +26,6 @@ namespace ToDo.Api.Controllers
         [HttpGet]
         public async Task<IEnumerable<Todo>> GetAllTaks()
         {
-            // Mocking delay
-            Thread.Sleep(1500);
             return await _repo.GetAllTodos();
         }
 
