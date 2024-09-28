@@ -18,7 +18,7 @@ export default function Home() {
 
   const fetch = async () => {
     setLoading(true)
-    let response = await getAllTodos();
+    const response = await getAllTodos();
     setTodos(response);
     setLoading(false)
   };
