@@ -17,9 +17,9 @@ const TodoItem: React.FC<Props> = ({ status, title, id, callback }) => {
     const [todoStatus, setStatus] = useState(status);
 
     const handleUpdate = async () => {
-        let newStatus = todoStatus === 0 ? 1 : 0;
+        const newStatus = todoStatus === 0 ? 1 : 0;
 
-        let response = await updateTodoStatus({ todoId: id, status: newStatus });
+        const response = await updateTodoStatus({ todoId: id, status: newStatus });
 
         if (response !== 200) {
             console.log('erro')
@@ -30,7 +30,7 @@ const TodoItem: React.FC<Props> = ({ status, title, id, callback }) => {
     };
 
     const handleDelete = async () => {
-        let response = await removeTodo(id);
+        const response = await removeTodo(id);
 
         if (response !== 200) {
             console.log('erro')
