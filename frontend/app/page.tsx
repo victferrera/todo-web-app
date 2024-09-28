@@ -13,7 +13,7 @@ export default function Home() {
 
   const [todos, setTodos] = useState<Array<Todo>>([]);
   const [todosAux, setTodosAux] = useState<Array<Todo>>([]);
-  const [onlyOpenTasks, setOnlyOpenTasks] = useState(0);
+  const [onlyOpenTasks, setOnlyOpenTasks] = useState(2);
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Home() {
 
   const fetch = async () => {
     setLoading(true)
-    const response = await getAllTodos();
+    const response = (await getAllTodos());
     setTodos(response);
     setTodosAux(response);
     setLoading(false)
@@ -33,10 +33,9 @@ export default function Home() {
   };
 
   const handleOnlyOpenTasksClick = () => {
-    const onlyOpen = onlyOpenTasks === 0 ? 1 : 0;
+    const onlyOpen = onlyOpenTasks === 2 ? 0 : 2;
     setOnlyOpenTasks(onlyOpen);
-    const todosFilter = todos.filter(t => t.status === onlyOpen);
-    setTodosAux(todosFilter);
+    setTodosAux(onlyOpen === 2 ? todos.filter(t => t.status !== 2) : todos.filter(t => t.status === onlyOpen));
   }
 
   return (
@@ -46,7 +45,7 @@ export default function Home() {
       <div className="flex flex-row items-center justify-center gap-x-2 text-xl ml-5 mt-10">
         <span onClick={handleOnlyOpenTasksClick}>
           {
-            onlyOpenTasks ?
+            onlyOpenTasks === 0 ?
             <CheckChecked className="hover:text-[#DA852A] hover:cursor-pointer w-5 h-5" /> : 
             <CheckUnchecked className="hover:text-[#DA852A] hover:cursor-pointer w-5 h-5" />
           }
