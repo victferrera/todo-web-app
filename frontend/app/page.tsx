@@ -42,7 +42,6 @@ export default function Home() {
     const onlyOpen = onlyOpenTasks === 2 ? 0 : 2;
     setOnlyOpenTasks(onlyOpen);
     setTodosAux(onlyOpen === 2 ? todos.filter(t => t.status !== 2) : todos.filter(t => t.status === onlyOpen));
-    await fetch();
   }
 
   return (
