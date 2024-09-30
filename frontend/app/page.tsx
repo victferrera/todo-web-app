@@ -62,7 +62,7 @@ export default function Home() {
       </div>
       <Card isLoading={isLoading}>
         <div>
-          {todosAux.length !== 0 ? todosAux.map(t => <TodoItem key={t.id} id={t.id} status={t.status} title={t.title} callback={handleUpdateTodos} />) :
+          {todosAux.length !== 0 ? todosAux.map(t => <TodoItem key={t.id} id={t.id} status={t.status} title={t.title} description={t.description} callback={handleUpdateTodos} comments={t.comments} />) :
             <h2 className="flex items-center justify-center text-black text-5xl h-40">Nothing to show 😔</h2>}
         </div>
       </Card>

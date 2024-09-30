@@ -17,11 +17,12 @@ const Input: React.FC<Props> = ({ callback }) => {
         const formData = new FormData(event.currentTarget);
         await addTodo(formData.get('todoTitle')!.toString());
         await callback();
-        clearForm();
+        clearForm('addTodoForm');
         setLoading(false);
     }
 
-    return <>
+    return
+    <>
         <form onSubmit={submitHandler} id="addTodoForm">
             <div className="flex justify-center">
                 <div className="w-1/2">
@@ -34,7 +35,7 @@ const Input: React.FC<Props> = ({ callback }) => {
                 </div>
             </div>
         </form>
-    </>;
+    </>
 };
 
 export default Input;
