@@ -37,7 +37,7 @@ const CustomModal: React.FC<Props> = ({ show, title, comments, handleClose, hand
                     <div className="flex flex-col gap-y-5">
                         {comments.length > 0 ?
                             comments.map(c =>
-                                <div>className="flex flex-row justify-between">
+                                <div className="flex flex-row justify-between">
                                     <p id={c.id.toString()}>{c.text}</p>
                                     <span onClick={() => handleDelete(c.id)}><FaTrash className="hover:text-[#DA852A] hover:cursor-pointer" /></span>
                                 </div>) :
