@@ -33,7 +33,7 @@ export default function Home() {
     setLoading(false)
   };
 
-  const handleUpdateTodos = async() => {
+  const handleUpdateTodos = async () => {
     const response = await getAllTodos();
     setTodos(response);
   }
@@ -45,15 +45,15 @@ export default function Home() {
   }
 
   return (
-    <>
+    <div>
       <Header />
       <Input callback={handleUpdateTodos} />
       <div className="flex flex-row items-center justify-center gap-x-2 text-xl ml-5 mt-10">
         <span onClick={handleOnlyOpenTasksClick}>
           {
             onlyOpenTasks === 0 ?
-            <CheckChecked className="hover:text-[#DA852A] hover:cursor-pointer w-5 h-5" /> : 
-            <CheckUnchecked className="hover:text-[#DA852A] hover:cursor-pointer w-5 h-5" />
+              <CheckChecked className="hover:text-[#DA852A] hover:cursor-pointer w-5 h-5" /> :
+              <CheckUnchecked className="hover:text-[#DA852A] hover:cursor-pointer w-5 h-5" />
           }
         </span>
         <span>
@@ -66,6 +66,6 @@ export default function Home() {
             <h2 className="flex items-center justify-center text-black text-5xl h-40">Nothing to show 😔</h2>}
         </div>
       </Card>
-    </>
+    </div>
   );
 }

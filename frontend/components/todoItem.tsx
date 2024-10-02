@@ -38,7 +38,7 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>, todoId: number) => {
         event.preventDefault();
-        
+
         const formData = new FormData(event.currentTarget);
         const commentText = formData.get('commentToAdd')!.toString();
 
@@ -51,8 +51,8 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
 
         const todo = await getTodoById(todoId);
 
-        setComments(todo.comments);  
-        
+        setComments(todo.comments);
+
         clearForm('addTodoComment');
     }
 
@@ -66,7 +66,7 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
 
         const todo = await getTodoById(id);
 
-        setComments(todo.comments);  
+        setComments(todo.comments);
     }
 
     const handleDelete = async () => {
@@ -80,23 +80,25 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
         callback();
     };
 
-    return <>
-        <div className="flex flex-row justify-between mx-5 mt-5 mb-5" >
-            <div className="flex flex-row gap-x-5 items-center">
-                <span onClick={handleUpdate}>{todoStatus === 0 ?
-                    <CheckUnchecked className="hover:text-[#DA852A] hover:cursor-pointer w-10 h-10" /> :
-                    <CheckChecked className="hover:text-[#DA852A] hover:cursor-pointer w-10 h-10" />}</span>
-                <span onClick={() => setShow(true)} className="text-2xl text-[#3F3F3E] hover:text-5xl hover:cursor-pointer">{title}</span>
-            </div>
-            <div className="flex items-center">
-                <span onClick={handleDelete}><FaTrash className="hover:text-[#DA852A] hover:cursor-pointer" /></span>
-            </div>
-        </div>
+    return (
         <div>
-            <hr className="border-gray-400 border-t-2 mb-5 mx-5" />
+            <div className="flex flex-row justify-between mx-5 mt-5 mb-5" >
+                <div className="flex flex-row gap-x-5 items-center">
+                    <span onClick={handleUpdate}>{todoStatus === 0 ?
+                        <CheckUnchecked className="hover:text-[#DA852A] hover:cursor-pointer w-10 h-10" /> :
+                        <CheckChecked className="hover:text-[#DA852A] hover:cursor-pointer w-10 h-10" />}</span>
+                    <span onClick={() => setShow(true)} className="text-2xl text-[#3F3F3E] hover:text-5xl hover:cursor-pointer">{title}</span>
+                </div>
+                <div className="flex items-center">
+                    <span onClick={handleDelete}><FaTrash className="hover:text-[#DA852A] hover:cursor-pointer" /></span>
+                </div>
+            </div>
+            <div>
+                <hr className="border-gray-400 border-t-2 mb-5 mx-5" />
+            </div>
+            <CustomModal show={show} handleClose={() => setShow(false)} handleSubmit={(event) => handleSubmit(event, id)} handleDelete={handleDeleteComment} title={title} body={description} comments={todoComments} />
         </div>
-        <CustomModal show={show} handleClose={() => setShow(false)} handleSubmit={(event) => handleSubmit(event, id)} handleDelete={handleDeleteComment} title={title} body={description} comments={todoComments} />
-    </>;
+    );
 };
 
 export default TodoItem;
