@@ -7,14 +7,15 @@ import { FaTrash } from "react-icons/fa";
 interface Props {
     show: boolean,
     title: string,
-    body: string,
+    description: string,
     comments: Array<Comment>
     handleClose: () => void;
     handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
+    handleDescSubmit: (event: FormEvent<HTMLFormElement>) => void;
     handleDelete: (commentId: number) => void;
 }
 
-const CustomModal: React.FC<Props> = ({ show, title, comments, handleClose, handleSubmit, handleDelete }) => {
+const CustomModal: React.FC<Props> = ({ show, title, description, comments, handleClose, handleSubmit, handleDescSubmit, handleDelete }) => {
     return <>
         <Modal show={show} onHide={handleClose} size="lg">
             <Modal.Header closeButton>
@@ -24,7 +25,16 @@ const CustomModal: React.FC<Props> = ({ show, title, comments, handleClose, hand
             </Modal.Header>
             <Modal.Body>
                 <span className="text-xl font-bold">Description</span>
-                <p className="text-justify mt-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum</p>
+                <form id="addTodoDescription" onSubmit={(event) => handleDescSubmit(event)}>
+                    <div className="flex flex-col gap-y-2">
+                        <textarea rows={3} className="w-full focus:outline-blue-500 rounded-xl p-3 mt-2" name="descriptionToAdd" placeholder={description ?? 'Add a description'}>
+                            {description ?? description}
+                        </textarea>
+                        <button type="submit" className="bg-[#76B7CD] p-2 w-20 rounded-xl hover:bg-[#3aa6ca] mt-2">
+                            Save
+                        </button>
+                    </div>
+                </form>
                 <hr></hr>
                 <span className="text-xl font-bold">Comments</span>
                 <div className="flex flex-col justify-center gap-y-3 mt-2">

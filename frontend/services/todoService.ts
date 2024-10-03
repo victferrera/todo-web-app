@@ -11,6 +11,11 @@ interface CommentDto {
     text?: string
 }
 
+interface DescriptionDto {
+    todoId?: number,
+    text?: string
+}
+
 const url = process.env.TODO_API_URL!;
 
 const getAllTodos = async (): Promise<Array<Todo>> => {
@@ -96,6 +101,24 @@ const updateTodoStatus = async (updateDto: UpdateDto): Promise<number> => {
         throw error;
     }
 }
+const updateTodoDesc = async (descriptionDto: DescriptionDto): Promise<number> => {
+    try {
+        const response = await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(descriptionDto),
+            cache: 'no-cache'
+        });
+
+        return response.status;
+
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
 const addComment = async (commentDto: CommentDto): Promise<number> => {    
     try {
         const response = await fetch(url + "/comment", {
@@ -134,4 +157,4 @@ const removeComment = async (commentDto: CommentDto): Promise<number> => {
     }
 }
 
-export { getAllTodos, removeTodo, addTodo, updateTodoStatus, addComment, removeComment, getTodoById }
+export { getAllTodos, removeTodo, addTodo, updateTodoStatus, addComment, removeComment, getTodoById, updateTodoDesc }

@@ -47,16 +47,22 @@ namespace ToDo.Api.Controllers
             await _repo.AddComment(dto);
         }
 
-        [HttpPut("comment")]
-        public async Task UpdateComment(CommentDto dto)
+        [HttpDelete("comment/{todoId:int}/{commentId:int}")]
+        public async Task RemoveComment(int todoId, int commentId)
         {
-            await _repo.UpdateComment(dto);
+            await _repo.RemoveComment(todoId, commentId);
         }
 
         [HttpPut]
         public async Task UpdateStatus(UpdateStatusDto dto)
         {
             await _repo.UpdateStatus(dto);
+        }
+
+        [HttpPatch]
+        public async Task UpdateDescription(DescriptionDto dto)
+        {
+            await _repo.UpdateDescription(dto);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ToDo.Infra
 
         public async Task<IEnumerable<Todo>> GetAllTodos()
         {
-            return await _ctx.Todos.ToListAsync();
+            return await _ctx.Todos.Include(c => c.Comments).ToListAsync();
         }
 
         public async Task<Todo> GetTodoById(int todoId)
@@ -62,19 +62,19 @@ namespace ToDo.Infra
             }
         }
 
-        public async Task UpdateComment(CommentDto dto)
+        public async Task RemoveComment(int todoId, int commentId)
         {
-            var todo = await GetTodoById(dto.TodoId);
+            var todo = await GetTodoById(todoId);
 
             if (todo != null)
             {
-                var comment = todo.Comments.FirstOrDefault(c => c.Id == dto.CommentId);
+                var comment = todo.Comments.FirstOrDefault(c => c.Id == commentId);
+                
                 if(comment != null)
                 {
-                    comment.Text = dto.Text;
+                    todo.Comments.Remove(comment);
                 }
 
-                _ctx.Update(todo);
                 await SaveChanges();
             }
         }
@@ -84,6 +84,19 @@ namespace ToDo.Infra
         private async Task SaveChanges()
         {
             await _ctx.SaveChangesAsync();
+        }
+
+        public async Task UpdateDescription(DescriptionDto dto)
+        {
+            var todo = await GetTodoById(dto.TodoId);
+
+            if(todo != null)
+            {
+                todo.Description = dto.Text;
+                _ctx.Update(todo);
+            }
+
+            await SaveChanges();
         }
     }
 }

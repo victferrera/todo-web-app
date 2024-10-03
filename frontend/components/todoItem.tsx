@@ -3,7 +3,7 @@ import CheckUnchecked from "./checkUnchecked";
 import CheckChecked from "./checkChecked";
 import { removeComment, removeTodo } from "@/services/todoService";
 import { FormEvent, useState } from "react";
-import { updateTodoStatus, addComment, getTodoById } from "@/services/todoService";
+import { updateTodoStatus, addComment, getTodoById, updateTodoDesc } from "@/services/todoService";
 import { clearForm } from "@/public/js/utils";
 import CustomModal from "./modal";
 
@@ -20,6 +20,7 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
 
     const [todoStatus, setStatus] = useState(status);
     const [todoComments, setComments] = useState(comments);
+    const [desc, setDesc] = useState(description);
     const [show, setShow] = useState(false);
 
     const handleUpdate = async () => {
@@ -54,6 +55,17 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
         setComments(todo.comments);
 
         clearForm('addTodoComment');
+    }
+
+    const handleDescSubmit = async (event: FormEvent<HTMLFormElement>, todoId: number) => {
+        event.preventDefault();
+        
+        const formData = new FormData(event.currentTarget);
+        const description = formData.get('descriptionToAdd')!.toString();
+
+        await updateTodoDesc({text: description, todoId: todoId});
+
+        setDesc(description);
     }
 
     const handleDeleteComment = async (commentId: number) => {
@@ -96,7 +108,7 @@ const TodoItem: React.FC<Props> = ({ status, title, id, description, comments, c
             <div>
                 <hr className="border-gray-400 border-t-2 mb-5 mx-5" />
             </div>
-            <CustomModal show={show} handleClose={() => setShow(false)} handleSubmit={(event) => handleSubmit(event, id)} handleDelete={handleDeleteComment} title={title} body={description} comments={todoComments} />
+            <CustomModal show={show} handleClose={() => setShow(false)} handleSubmit={(event) => handleSubmit(event, id)} handleDelete={handleDeleteComment} handleDescSubmit={(event) => handleDescSubmit(event, id)} title={title} description={desc} comments={todoComments} />
         </div>
     );
 };
